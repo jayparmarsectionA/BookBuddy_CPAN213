@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function BookGridCard({ book, onPress }) {
   const thumbnail = book.volumeInfo.imageLinks?.thumbnail;
@@ -9,8 +9,8 @@ export default function BookGridCard({ book, onPress }) {
   const averageRating = book.volumeInfo.averageRating || 'N/A';
 
   return (
-    <TouchableOpacity onPress={onPress} style={{ flex: 1, margin: 5 }}>
-      {thumbnail && <Image source={{ uri: thumbnail }} style={{ width: '100%', height: 150 }} />}
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      {thumbnail && <Image source={{ uri: thumbnail }} style={{ width: '100%', height: 250, borderRadius: 10 }} />}
       <View style={{ flexDirection: 'row', marginTop: 5 }}>
         <View style={{ flex: 3 }}>
           <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{title}</Text>
@@ -24,3 +24,12 @@ export default function BookGridCard({ book, onPress }) {
     </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    margin: 5,
+    backgroundColor: '#fff',
+   
+  }
+});

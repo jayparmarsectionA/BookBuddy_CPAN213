@@ -68,7 +68,14 @@ const BooksScreen = ({ setGuestMode }) => {
           <FlatList
             data={savedBooks}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <BookCard book={item} />}
+            renderItem={({ item }) => (
+              <BookCard
+                book={item}
+                onPress={() => {
+                  navigation.navigate('BookDetails', { book: item });
+                }}
+              />
+            )}
           />
         )}
       </View>

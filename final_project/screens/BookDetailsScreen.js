@@ -1,13 +1,17 @@
 // Updated BookDetailsScreen.js
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, Linking, ScrollView } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, Image, TouchableOpacity, Linking, ScrollView, SafeAreaView, Button} from 'react-native';
 import { Ionicons, Entypo } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 
+import { BookContext } from '../context/BookContext';
+
+
 export default function BookDetailsScreen({ route }) {
   const { book } = route.params;
   const navigation = useNavigation();
+  const { addBook } = useContext(BookContext);
 
   const {
     title,
@@ -23,6 +27,7 @@ export default function BookDetailsScreen({ route }) {
   const buyLink = book.saleInfo?.buyLink;
 
   return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#a85600', paddingTop: 10}}>
     <LinearGradient colors={['#a85600', '#4a2600']} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={{ padding: 20 }}>
 
@@ -33,7 +38,7 @@ export default function BookDetailsScreen({ route }) {
           </TouchableOpacity>
 
           <View style={{ flexDirection: 'row', gap: 10 }}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => addBook(book)}>
               <Ionicons name="add" size={24} color="orange" style={{ backgroundColor: '#fff', borderRadius: 20, padding: 4 }} />
             </TouchableOpacity>
             <TouchableOpacity>
@@ -77,7 +82,15 @@ export default function BookDetailsScreen({ route }) {
           <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16, marginBottom: 8 }}>From the Publisher</Text>
           <Text style={{ color: '#ddd', lineHeight: 20 }}>{description}</Text>
         </View>
+         <View style={{ marginVertical: 10 }}>
+        <Button
+  title="Start Reading"
+  onPress={() => navigation.navigate('ProgressInput', { bookId: book.id })}
+/>
+
+      </View>
       </ScrollView>
     </LinearGradient>
+    </SafeAreaView>
   );
 }

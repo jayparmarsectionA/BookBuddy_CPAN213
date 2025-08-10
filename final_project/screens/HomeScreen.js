@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, TouchableOpacity, Image, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { fetchRecentBooks } from '../utils/api';
+import BookGridCard from '../components/BookGridCard';
+
 
 export default function HomeScreen({ navigation }) {
   const [books, setBooks] = useState([]);
@@ -22,6 +24,7 @@ export default function HomeScreen({ navigation }) {
       <Text style={styles.sectionTitle}>📚 Start Reading</Text>
 
       <FlatList
+        style={styles.body}
         data={books}
         keyExtractor={(item) => item.id}
         numColumns={2}
@@ -29,16 +32,10 @@ export default function HomeScreen({ navigation }) {
         contentContainerStyle={{ gap: 20 }}
         columnWrapperStyle={{ justifyContent: 'space-between' }}
         renderItem={({ item }) => (
-          <TouchableOpacity
+          <BookGridCard
+            book={item}
             onPress={() => navigation.navigate('BookDetails', { book: item })}
-            style={[styles.bookCard, { width: bookWidth }]}
-          >
-            <Image
-              source={{ uri: item.volumeInfo.imageLinks?.thumbnail }}
-              style={styles.bookImage}
-              resizeMode="cover"
-            />
-          </TouchableOpacity>
+          />
         )}
       />
 
@@ -55,12 +52,17 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 15,
     paddingTop: 50,
-    backgroundColor: '#0e0e10',
+    backgroundColor: '#eaeaecff',
+  },
+  body:{
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 10,
   },
   sectionTitle: {
     fontSize: 22,
     fontWeight: '700',
-    color: '#fff',
+    color: '#000',
     marginBottom: 20,
   },
   bookCard: {
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
   },
   goalCard: {
     marginTop: 30,
-    padding: 20,
+    paddingBottom: 100,
     borderRadius: 20,
     backgroundColor: 'rgba(255, 255, 255, 0.07)',
     alignItems: 'center',
@@ -88,11 +90,11 @@ const styles = StyleSheet.create({
   goalText: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#fff',
+    color: '#000',
   },
   goalSubText: {
     fontSize: 14,
-    color: '#ccc',
+    color: '#000',
     marginTop: 6,
   },
 });

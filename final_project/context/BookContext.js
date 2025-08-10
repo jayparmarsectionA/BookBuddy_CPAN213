@@ -4,6 +4,7 @@ import { collection, doc, setDoc, getDocs, updateDoc, query } from 'firebase/fir
 import { auth, db } from '../firebase';
 
 
+
 export const BookContext = createContext();
 
 export const BookProvider = ({ children, isGuest = false }) => {
@@ -25,6 +26,7 @@ export const BookProvider = ({ children, isGuest = false }) => {
       return unsubscribe;
     }
   }, [isGuest]);
+
 
   const loadBooks = async (uid) => {
   try {

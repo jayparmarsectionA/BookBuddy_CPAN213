@@ -11,6 +11,7 @@ import BookDetailsScreen from './screens/BookDetailsScreen';
 import BooksScreen from './screens/BooksScreen';
 import ProgressScreen from './screens/ProgressScreen';
 import AuthStack from './navigation/AuthStack';
+import ProgressInput from './screens/ProgressInput';
 
 import { BookProvider } from './context/BookContext';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -38,7 +39,7 @@ function Tabs({ setGuestMode }) {
       />
       <Tab.Screen
         name="MyBooks"
-        children={() => <BooksScreen setGuestMode={setGuestMode} />} // ✅ pass prop
+        children={() => <BooksScreen setGuestMode={setGuestMode} />}
         options={{
           title: 'My Books',
           tabBarIcon: ({ color, size }) => <Ionicons name="book" color={color} size={size} />,
@@ -93,6 +94,9 @@ export default function App() {
                 {(props) => <Tabs {...props} setGuestMode={setGuestMode} />}
               </Stack.Screen>
               <Stack.Screen name="BookDetails" component={BookDetailsScreen} />
+              <Stack.Screen name="ProgressInput" component={ProgressInput} />
+
+              {/* <Stack.Screen name="ProgressForm" component={ProgressForm} /> */}
             </>
           ) : (
             <Stack.Screen name="Auth">
